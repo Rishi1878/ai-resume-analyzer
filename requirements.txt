@@ -1,0 +1,18 @@
+# AI Resume Intelligence System — Python dependencies
+
+# NLP
+spacy>=3.7.0
+sentence-transformers>=2.7.0   # includes HuggingFace transformers + MiniLM
+transformers>=4.40.0
+
+# Data
+numpy>=1.26.0
+
+# MySQL (optional — only needed if using --db flag)
+mysql-connector-python>=8.3.0
+
+# PDF support (optional — for parsing PDF resumes)
+pdfplumber>=0.11.0
+
+# Utilities
+tqdm>=4.66.0
