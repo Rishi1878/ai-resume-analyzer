@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  resume-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-resume-analyzer
+    volumes:
+      - ./resumes:/app/resumes
+      - ./results:/app/results
+    environment:
+      PYTHONUNBUFFERED: 1
+    stdin_open: true
+    tty: true
+    command: python main.py --demo
+
+  # Optional: MySQL service for database persistence
+  mysql:
+    image: mysql:8.0
+    container_name: resume-db
+    environment:
+      MYSQL_ROOT_PASSWORD: resume_password
+      MYSQL_DATABASE: resume_intelligence
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+volumes:
+  mysql_data:
+
+networks:
+  default:
+    name: resume-network
